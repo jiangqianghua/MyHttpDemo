@@ -26,9 +26,18 @@ public class Dispatch implements Runnable {
 	
 	@Override
 	public void run() {
-		
-		Servlet servlet = new Servlet();
-		servlet.service(request, response);
+		String action = request.getAction() ; 
+		if("/favicon.ico".equals(action))
+		{
+			return ;
+		}
+		Servlet servlet = WebApp.getServlet(action);
+		try {
+			servlet.service(request, response);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			code = 500;
+		}
 		response.pushToClient(code);
 		try {
 			client.close();
