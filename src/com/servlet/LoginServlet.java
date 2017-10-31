@@ -1,3 +1,7 @@
+package com.servlet;
+import com.http.Request;
+import com.http.Response;
+
 
 public class LoginServlet extends Servlet {
 
@@ -6,7 +10,7 @@ public class LoginServlet extends Servlet {
 		// TODO Auto-generated method stub
 		super.doGet(request, response);
 		// 返回浏览器显示内容
-		response.htmlContent("<html><head></head><body>this is my page1</body></html>");
+		response.htmlContent("<html><head></head><body>this is my LoginServlet</body></html>");
 	}
 
 	@Override

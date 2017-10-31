@@ -1,3 +1,4 @@
+package com.http;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,7 +43,7 @@ public class Request {
 	}
 	
 	
-	public Request(InputStream inputStream){
+	public Request(InputStream inputStream)throws Exception{
 		this();
 		request = new BufferedReader(new InputStreamReader(inputStream));
 		String temp ; 
@@ -51,9 +52,10 @@ public class Request {
 				requestHeader +=(temp+ENTER);
 			}
 			System.out.println(requestHeader);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
+			requestHeader = null ;
+			throw new Exception();
 		}
 		
 		// 解析头部信息
@@ -64,6 +66,8 @@ public class Request {
 	 * 解析头部信息
 	 */
 	private void parseRequestHeader() {
+		if(requestHeader == null)
+			return ;
 		String paramsString = "";
 		String firstLine = requestHeader.substring(0,requestHeader.indexOf(ENTER));
 		int splitPointOne = firstLine.indexOf("/");
